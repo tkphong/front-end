@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap');
+
+body, html {
+    height: 100%
+  }
+  .bgimg {
+    background-image: url("./weather.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    height: 100vh;
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 25px;
+  }
+  
+  .topleft {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+  }
+  
+  .bottomleft {
+    position: absolute;
+    bottom: 0;
+    left: 27px;
+    bottom:20px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 33px;
+  }
+  
+  .middle {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  hr {
+    margin: auto;
+    width: 40%;
+  }
+  
+  .button {
+    background-color: #0476aa;
+    /* border: none; */
+    color: white;
+    padding: 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 30px;
+    margin: 15px 2px;
+  }
+  
+  .button1 {
+    border-radius: 2px;
+  }
+  .button2 {
+    border-radius: 4px;
+  }
+  .button3 {
+    border-radius: 8px;
+  }
+  .button4 {
+    border-radius: 12px;
+  }
+  .button5 {
+    border-radius: 50%;
+  }
+  .button6 {
+    color: white;
+  }
+  
