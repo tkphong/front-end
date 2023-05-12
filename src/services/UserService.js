@@ -134,7 +134,7 @@ class UserService {
                     let item = null
                     let wind_speed = data["wind_speed"]
                     if (wt_cond === 'Cloud') {
-                        item = 'jacket'
+                        item = 'camera'
                     } else if (wt_cond === 'Sunny') {
                         item = 'sunglasses'
                     } else if (wt_cond === 'Rainy') {

@@ -2,7 +2,6 @@ import "./Main.css";
 import axios from "axios";
 import UserService from "../../services/UserService";
 import React, { useEffect, useState } from "react";
-import {useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar";
 import Chatbot from "./../chatbot/Chatbot";
 const Main = () => {
