@@ -10,7 +10,7 @@ const Main = () => {
 
 // Hàm để gọi API và cập nhật dữ liệu
 const fetchLatestData = () => {
-  const url = `https://weather-proj-api.herokuapp.com/api`;
+  const url = `https://api-weather-app.herokuapp.com/api`;
   axios.get(url + '/addLatest').then((response) => {
     let data = null;
     data = response.data;
@@ -136,13 +136,14 @@ return () => clearInterval(intervalId);
       }
     });
 
+
     function predictWeatherData2(obj) {
       let latitude = obj.coord.lat;
       let longitude = obj.coord.lon;
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
-          //`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
-        //`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=metric&appid=${API_KEY}`
+        //`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+        //  `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${latitude},${longitude}&days=7`
+        `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${API_KEY}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -308,23 +309,29 @@ return () => clearInterval(intervalId);
     `;
     }
 
+    function kelvinToCelsius(kelvin) {
+      return (kelvin - 273.15).toFixed(2);
+    }
+
     function predictWeatherData(data) {
-      let otherDayForcast = "";
+      let otherDayForcast = '';
       data.daily.forEach((day, idx) => {
+        const celsiusNight = kelvinToCelsius(day.temp.night);
+        const celsiusDay = kelvinToCelsius(day.temp.day);
+    
         if (idx === 0) {
           currentTempEl.innerHTML = `
-            <img src="http://openweathermap.org/img/wn//${
+            <img src="http://openweathermap.org/img/wn/${
               day.weather[0].icon
             }@4x.png" alt="weather icon" class="w-icon">
             <div class="other">
                 <div class="day">${window
                   .moment(day.dt * 1000)
                   .format("dddd")}</div>
-                <div class="temp">Night - ${day.temp.night}&#176;C</div>
-                <div class="temp">Day - ${day.temp.day}&#176;C</div>
+                <div class="temp">Night - ${celsiusNight}&#176;C</div>
+                <div class="temp">Day - ${celsiusDay}&#176;C</div>
             </div>
-
-            `;
+          `;
         } else {
           otherDayForcast += `
             <div class="weather-forecast-item">
@@ -334,15 +341,15 @@ return () => clearInterval(intervalId);
                 <img src="http://openweathermap.org/img/wn/${
                   day.weather[0].icon
                 }@2x.png" alt="weather icon" class="w-icon">
-                <div class="temp">Night - ${day.temp.night}&#176;C</div>
-                <div class="temp">Day - ${day.temp.day}&#176;C</div>
+                <div class="temp">Night - ${celsiusNight}&#176;C</div>
+                <div class="temp">Day - ${celsiusDay}&#176;C</div>
             </div>
-
-            `;
+          `;
         }
       });
       weatherForecastEl.innerHTML = otherDayForcast;
     }
+    
   }, []);
   return (
     <div>
