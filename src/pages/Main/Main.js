@@ -9,8 +9,8 @@ const Main = () => {
 
 // Hàm để gọi API và cập nhật dữ liệu
 const fetchLatestData = () => {
-  const url = `https://api-weather-app.herokuapp.com/api`;
-  axios.get(url + '/addLatest').then((response) => {
+  //const url = `https://api-weather-app.herokuapp.com/api`;
+  UserService.addLatest().then((response) => {
     let data = null;
     data = response.data;
     console.log(response.data);

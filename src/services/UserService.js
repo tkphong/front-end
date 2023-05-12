@@ -1,5 +1,6 @@
 import axios from 'axios'
-const WEATHER_REST_API_URL = 'https://api-weather-app.herokuapp.com/api'
+//const WEATHER_REST_API_URL = 'https://api-weather-app.herokuapp.com/api'
+const WEATHER_REST_API_URL = 'http://localhost:8080/api'
 const WEATHER_CLASSIFY_API_URL = 'http://127.0.0.1:8000/api/v1/'
 const WEATHER_PREDICT_API_URL = 'http://127.0.0.1:8000/api/v2/6'
 const CHATBOT_API_URL = 'http://127.0.0.1:8000/api/v3/'
