@@ -49,7 +49,7 @@ return () => clearInterval(intervalId);
       "Thursday",
       "Friday",
       "Saturday",
-    ];
+     ];
     const months = [
       "Jan",
       "Feb",
@@ -421,11 +421,11 @@ return () => clearInterval(intervalId);
 
             <div className="place-container">
               <div className="time-zone" id="time-zone">
-                Asia/VungTau
+
               </div>
               <div id="coordinates" className="coordinates"></div>
               <div id="country" className="country">
-                VN
+
               </div>
               <div className="search" id="search">
                 <input id="input" placeholder="Input a location" type="text" />
