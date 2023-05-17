@@ -32,7 +32,7 @@ const  Dashboard = () => {
             <MultiLineChart/>
           </div>
           <div className="listContainer">
-            <div className="listTitle">Predict Temperature</div>
+            <div className="listTitle">Dự đoán nhiệt độ</div>
             <Table />
           </div>
         </div>
@@ -55,7 +55,7 @@ const  Dashboard = () => {
             <MultiLineChart/>
           </div>
           <div className="listContainer">
-            <div className="listTitle">Predict Temperature</div>
+            <div className="listTitle">Dự đoán nhiệt độ</div>
             <Table />
           </div>
         </div>

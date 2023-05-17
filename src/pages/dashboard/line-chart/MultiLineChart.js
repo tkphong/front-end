@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-google-charts';
-import UserService from '../../../services/UserService';
 import "./MultiLineChart.css";
-
+import UserService from '../../../services/UserService';
+import axios from 'axios';
 const LineData = [
   ['x', 'temperature', 'humidity','wind-speed'],
   [0, 0, 0, 0],
@@ -14,39 +14,69 @@ const LineData = [
   [6, 11, 3, 6],
   [7, 27, 19, 7],
 ]
+
+const getWeatherData = async () => {
+  try {
+    const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7');
+    const weatherData = response.data;
+    const windSpeed = weatherData.wind.speed;
+    return windSpeed;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 const LineChartOptions = {
   hAxis: {
-    title: 'Time (30 most recent record)',
+    title: 'Thời gian (30 giá trị gần đây nhất)',
   },
   vAxis: {
-    title: 'Value',
+    title: 'Giá trị',
   },
   series: {
     1: { curveType: 'function' },
   },
-}
-var  result = [['x', 'temperature', 'humidity','wind-speed']];
+};
+
 const MultiLineChart = () => {
-  const [chart_state, setChart_state] = useState(null); 
+  const [chartData, setChartData] = useState(null);
+
   useEffect(() => {
-   
-    UserService.getRecordList().then((response)=>{
-      var i = 0;
-      while(i < response.data.length){
-        result.push([])
-        result[result.length-1].push(i);
-        result[result.length-1].push(response.data[i].temperature);
-        result[result.length-1].push(response.data[i].humidity);
-        result[result.length-1].push(response.data[i].windSpeed);
-        i++
+    const fetchData = async () => {
+      try {
+        const weatherData = await getWeatherData();
+        if (weatherData !== null) {
+          UserService.getRecordList()
+            .then((response) => {
+              const data = response.data;
+              const chartData = [['x', 'temperature', 'humidity', 'wind-speed']];
+              for (let i = 0; i < data.length; i++) {
+                const temperature = data[i].temperature;
+                const humidity = data[i].humidity;
+                const windSpeed = (weatherData * 3600) / 1000;
+
+                chartData.push([i, temperature, humidity, windSpeed]);
+              }
+
+              setChartData(chartData);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
-      setChart_state(result);
-    }).catch(err=>console.log(err))  
-  }, [])
-  if(chart_state === null){
+    };
+
+    fetchData();
+  }, []);
+
+  if (chartData === null) {
     return (
       <div className="linechart">
-        <h2 className='title-linechart'>Line chart of sensors over time</h2>
+        <h2 className='title-linechart'>Biểu đồ đường các giá trị theo thời gian</h2>
         <Chart
           width={'50rem'}
           height={'30rem'}
@@ -57,25 +87,23 @@ const MultiLineChart = () => {
           rootProps={{ 'data-testid': '2' }}
         />
       </div>
-    )
-  }
-  else{
+    );
+  } else {
     return (
       <div className="linechart">
-        <h2 className='title-linechart'>Line chart of sensors over time</h2>
+        <h2 className='title-linechart'>Biểu đồ đường các giá trị theo thời gian</h2>
         <Chart
           width={'50rem'}
           height={'30rem'}
           chartType="LineChart"
           loader={<div>Loading Chart</div>}
-          data={result}
+          data={chartData}
           options={LineChartOptions}
           rootProps={{ 'data-testid': '2' }}
         />
       </div>
-    )
+    );
   }
-}
+};
 
-
-export default MultiLineChart
+export default MultiLineChart;

@@ -60,7 +60,7 @@ class UserService {
                             .then(async(response) => {
                                 let humidity = response.data.humidity;
                                 let pressure = data.main.pressure;
-                                let wind_speed = response.data.windSpeed;
+                                let wind_speed = data.wind.speed;
                                 let temp = response.data.temperature;
                                 let visibility = data.visibility;
                                 let clouds = data.clouds.all;
@@ -86,6 +86,7 @@ class UserService {
                         let pressure = data.main.pressure;
                         let wind_speed = data.wind.speed;
                         let temp = data.main.feels_like;
+                        //let temp = data.main.temp;
                         let visibility = data.visibility;
                         let clouds = data.clouds.all;
 
@@ -134,13 +135,13 @@ class UserService {
                     let wt_cond = data["classify"]
                     let item = null
                     let wind_speed = data["wind_speed"]
-                    if (wt_cond === 'Cloud') {
+                    if (wt_cond === 'Có mây') {
                         item = 'camera'
-                    } else if (wt_cond === 'Sunny') {
+                    } else if (wt_cond === 'Trời nắng') {
                         item = 'sunglasses'
-                    } else if (wt_cond === 'Rainy') {
+                    } else if (wt_cond === 'Trời mưa') {
                         item = 'umbrella'
-                    } else if (wt_cond === 'Clear') {
+                    } else if (wt_cond === 'Trong lành') {
                         item = 'bottle of water'
                     }
                     // ask about different feature such as temp, humidity, wind speed and the

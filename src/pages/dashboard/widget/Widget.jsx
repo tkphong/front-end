@@ -1,23 +1,42 @@
 import "./widget.scss";
+import React, { useState, useEffect } from 'react';
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import OpacityIcon from '@mui/icons-material/Opacity';
 import WindPowerIcon from '@mui/icons-material/WindPower';
+import axios from "axios";
 
-
-const Widget = ({ type,value}) => {
+const Widget = ({ type, value }) => {
   let data;
   const diff = 5;
   let temp = value;
   let humid = value;
-  let wind = value;
+  let [wind, setWind] = useState(value);
+
+  const getWeatherData = async () => {
+    try {
+      const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7');
+      const weatherData = response.data;
+      const windSpeed = weatherData.wind.speed;
+      setWind(windSpeed);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (type === "wind-speed") {
+      getWeatherData();
+    }
+  }, []);
+
   switch (type) {
     case "temperature":
       data = {
-        title: "Temperature",
-        link: "Latest record",
-        value:temp +  ' c',
+        title: "Nhiệt độ",
+        link: "Giá trị gần nhất",
+        value: temp + ' c',
         icon: (
           <ThermostatIcon
             className="icon"
@@ -29,11 +48,11 @@ const Widget = ({ type,value}) => {
         ),
       };
       break;
-    case "humidity": 
+    case "humidity":
       data = {
-        title: "Humidity ",
-        link: "Latest record",
-        value:humid +" %",
+        title: "Độ ẩm ",
+        link: "Giá trị gần nhất",
+        value: humid + " %",
         icon: (
           <OpacityIcon
             className="icon"
@@ -47,11 +66,11 @@ const Widget = ({ type,value}) => {
       break;
     case "wind-speed":
       data = {
-        title: "Wind Speed",
-        link: "Latest record",
-        value: (wind* 3600 / 1000).toFixed(2) + ' km/h',
+        title: "Tốc độ gió",
+        link: "Giá trị gần nhất",
+        value: (wind * 3600 / 1000).toFixed(2) + ' km/h',
         icon: (
-          <WindPowerIcon 
+          <WindPowerIcon
             className="icon"
             style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
           />
@@ -60,9 +79,9 @@ const Widget = ({ type,value}) => {
       break;
     case "condition":
       data = {
-        title: "Condition",
-        link: "Model's classification",
-        value:"Good",
+        title: "Điều kiện",
+        link: "Mô hình phân loại",
+        value: "Good",
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -77,13 +96,12 @@ const Widget = ({ type,value}) => {
     default:
       break;
   }
+
   return (
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">
-            {data.value} 
-        </span>
+        <span className="counter">{data.value}</span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
@@ -93,11 +111,8 @@ const Widget = ({ type,value}) => {
         </div>
         {data.icon}
       </div>
-      
     </div>
   );
-
-  
 };
 
 export default Widget;

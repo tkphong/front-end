@@ -62,10 +62,10 @@ const List = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className="tableCell">Time stamp</TableCell>
-              <TableCell className="tableCell">Expected temperature</TableCell>
-              <TableCell className="tableCell">Location</TableCell>
-              <TableCell className="tableCell">Date</TableCell>
+              <TableCell className="tableCell">Mốc thời gian</TableCell>
+              <TableCell className="tableCell">Nhiệt độ dự kiến</TableCell>
+              <TableCell className="tableCell">Vị trí</TableCell>
+              <TableCell className="tableCell">Ngày</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,10 +99,10 @@ const List = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className="tableCell">Time stamp</TableCell>
-              <TableCell className="tableCell">Expected temperature</TableCell>
-              <TableCell className="tableCell">Location</TableCell>
-              <TableCell className="tableCell">Date</TableCell>
+              <TableCell className="tableCell">Mốc thời gian</TableCell>
+              <TableCell className="tableCell">Nhiệt độ dự kiến</TableCell>
+              <TableCell className="tableCell">Vị trí</TableCell>
+              <TableCell className="tableCell">Ngày</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
