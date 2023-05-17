@@ -18,6 +18,7 @@ class UserService {
     getPredictNextHour() {
         return axios.get(WEATHER_PREDICT_API_URL);
     }
+
     async ensampleClassify(temp, speed, pres, humid, vis, clou) {
         let param_json = JSON.stringify({
             "temperature": temp,

@@ -8,11 +8,12 @@ import WindPowerIcon from '@mui/icons-material/WindPower';
 import axios from "axios";
 
 const Widget = ({ type, value }) => {
-  let data;
+  let data ;
   const diff = 5;
   let temp = value;
   let humid = value;
   let [wind, setWind] = useState(value);
+  let [condition, setCondition] = useState(null);
 
   const getWeatherData = async () => {
     try {
@@ -25,9 +26,39 @@ const Widget = ({ type, value }) => {
     }
   };
 
+  const getConditionData = async () => {
+    try {
+      const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7');
+      const weatherData = response.data;
+      const temperature = weatherData.main.temp;
+      const humidity = weatherData.main.humidity;
+      const pressure = weatherData.main.pressure;
+      const windSpeed = weatherData.wind.speed;
+      const clouds = weatherData.clouds.all;
+      const visibility = weatherData.visibility;
+      setWind(windSpeed);
+      const responsee = await axios.post('http://127.0.0.1:8000/api/v1/', {
+        temperature: temperature,
+        wind_speed: windSpeed,
+        pressure: pressure,
+        humidity: humidity,
+        vis_km: visibility,
+        cloud: clouds
+      });
+      const responseData = responsee.data;
+      setCondition(responseData.Condition);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   useEffect(() => {
     if (type === "wind-speed") {
       getWeatherData();
+    }
+    if (type === "condition") {
+      getConditionData();
     }
   }, []);
 
@@ -81,7 +112,7 @@ const Widget = ({ type, value }) => {
       data = {
         title: "Điều kiện",
         link: "Mô hình phân loại",
-        value: "Good",
+        value: condition,
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -106,8 +137,6 @@ const Widget = ({ type, value }) => {
       </div>
       <div className="right">
         <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
         </div>
         {data.icon}
       </div>

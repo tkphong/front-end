@@ -50,7 +50,7 @@ const MultiLineChart = () => {
           UserService.getRecordList()
             .then((response) => {
               const data = response.data;
-              const chartData = [['x', 'temperature', 'humidity', 'wind-speed']];
+              const chartData = [['x', 'nhiệt độ', 'độ ẩm', 'tốc độ gió']];
               for (let i = 0; i < data.length; i++) {
                 const temperature = data[i].temperature;
                 const humidity = data[i].humidity;
