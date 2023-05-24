@@ -6,11 +6,12 @@ import Table from "./table/Table";
 import React, { useState, useEffect } from 'react';
 import UserService from "../../services/UserService";
 
+
 const  Dashboard = () => {
   const [widget_res, setWidget_res] = useState(null); 
-  var humid=5;
-  var temp=5;
-  var wind=5;
+  var humid=0;
+  var temp=0;
+  var wind=0;
   useEffect(() => {
     UserService.getLatestRecord().then((response)=>{
       // console.log('response: ',response);

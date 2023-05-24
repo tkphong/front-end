@@ -18,7 +18,7 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <p className="title">Start Page</p>
+          <p className="title">Trang bắt đầu </p>
           <Link to="/" style={{ textDecoration: "none" }}>
               <li>
                 <DashboardIcon className="icon" />
@@ -26,7 +26,7 @@ const Sidebar = () => {
               </li>
           </Link>
           
-          <p className="title">Main Page</p>
+          <p className="title">Trang chủ</p>
           <Link to="/main" style={{ textDecoration: "none" }}>
             <li>
               <ArrowCircleLeftIcon className="icon" />
@@ -34,27 +34,20 @@ const Sidebar = () => {
             </li>
           </Link>
           
-          <p className="title">About Page</p>
+          <p className="title">Trang thành viên</p>
           <Link to="/about" style={{ textDecoration: "none" }}>
             <li>
               <InfoIcon className="icon" />
               <span>About Us</span>
             </li>
           </Link>
-         
+
           
-          <p className="title">Others</p>
+          <p className="title">Khác</p>
           <a href="https://github.com/CIYech" target="_blank" rel="noreferrer">
             <li>
               <GitHubIcon className="icon" />
               <span>Github</span>
-            </li>
-          </a>
-          
-          <a href="https://drive.google.com/drive/folders/1B2Qb2bKfFQWWnpA_nDpCM93MIJ_YPFgU" target="_blank" rel="noreferrer">
-            <li>
-              <AddToDriveIcon className="icon" />
-              <span>Google Drive</span>
             </li>
           </a>
         </ul>

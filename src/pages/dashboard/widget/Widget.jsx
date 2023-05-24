@@ -67,7 +67,7 @@ const Widget = ({ type, value }) => {
       data = {
         title: "Nhiệt độ",
         link: "Giá trị gần nhất",
-        value: temp + ' c',
+        value: temp + ' °C',
         icon: (
           <ThermostatIcon
             className="icon"

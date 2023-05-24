@@ -1,21 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;700&display=swap');
 
-*{
+* {
     box-sizing: border-box;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    font-family: 'Poppins', sans-serif;
+body {
+    font-family: 'Montserrat', sans-serif;
 }
 .main{
-    background:url('https://images.unsplash.com/photo-1621274403997-37aace184f49?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1');
+    /* background:url('https://images.unsplash.com/photo-1621274403997-37aace184f49?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1'); */
+    background: url('main_background.png');
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
     height: 100vh;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 .recommend .svg{
     /* padding:1rem; */
@@ -85,14 +86,14 @@ body{
   font-size: 1.2rem;
   border-radius: 20px;
   border: 2px solid rgba(240, 241, 241, 0.8);
-  background: rgba(255,255,255, 0.1);
+  background: rgba(90, 90, 90, 0.1);
   color: #e6d27b;
   text-align: center;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 ::placeholder {
-  color: #ffc040;
+  color: #e6d27b;
 }
 
 .place-container{
@@ -247,16 +248,18 @@ body{
         font-size: 20px;
     }
 
-    .current-info .others{
-        padding: 12px;
+    .place-container .country{
+        font-size: 22px;
+        font-weight: 600;
     }
 
-    .current-info .others .weather-item{
-        font-size: 14px;
+    .recommend{
+      flex-direction: column;
     }
-
+    .recommend > *{
+      margin: 5px 0;
+    }
 }
-
 @media only screen and (max-width: 1100px) and (min-width: 761px){
     .future-forecast{
         justify-content: start;

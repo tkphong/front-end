@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;700&display=swap');
 *{
 	margin:0;
 	padding:0;
@@ -7,11 +7,11 @@
 nav{
 	width: 100%;
 	padding: 15px 70px;
-	position: sticky;
+	/* position: sticky; */
 	top: 0;
 	left:70%;
 	z-index: 1;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	text-align: right;
 }
 
@@ -20,7 +20,7 @@ nav ul li{
 	list-style: none;
 }
 nav ul li a{
-	color:#fca626;
+	color:#f3d54d;
 	text-decoration: none;
 	font-size: 20px;
 	font-weight: bold;
@@ -28,7 +28,8 @@ nav ul li a{
 	margin: 0 15px;
 }
 nav ul li a:hover{
-	color:#ffc040;
+	/* color:#ffc040; */
+	color:#d6b419;
 	text-decoration: underline;
 }
 @media (max-width: 1130px) and (min-width: 761px){

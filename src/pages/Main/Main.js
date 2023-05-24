@@ -86,7 +86,6 @@ return () => clearInterval(intervalId);
       dateEl.innerHTML = days[day] + ", " + date + " " + months[month];
     }, 1000);
     
-/* Ho Chi Minh ko hien thi nhung co data */
     var input = document.getElementById("input");
     input.addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
@@ -95,12 +94,13 @@ return () => clearInterval(intervalId);
         if (
           text === "ho chi minh" ||
           text === "sai gon" ||
-          text === "ho chi minh city"
+          text === "ho chi minh city" ||
+          text === "Hồ Chí Minh" 
         ) {
           let data = null;
           location = "Ho Chi Minh";
           text = "";
-          const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`;
+          const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}&lang=vi`;
           //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`;
           axios.get(url).then((response) => {
             data = response.data;
@@ -124,7 +124,7 @@ return () => clearInterval(intervalId);
           document.getElementById("input").value = "";
         } else {
           //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`;
-          const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`;
+          const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}&lang=vi`;
           axios.get(url).then((response) => {
             let data = response.data;
             showWeatherData(data, data.name);
@@ -143,7 +143,7 @@ return () => clearInterval(intervalId);
       fetch(
         //`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
         //  `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${latitude},${longitude}&days=7`
-        `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${API_KEY}&lang=vi`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -370,14 +370,14 @@ return () => clearInterval(intervalId);
               </div>
 
               <div className="others" id="current-weather-items">
-                <p>Welcome to weather forecast.</p>
-                <p>Search a location to explore our product!</p>
+                <p>Chào mừng đến với hệ thống dự báo thời tiết</p>
+                <p>Tìm kiếm một địa điểm để khám phá sản phẩm của chúng tôi!</p>
               </div>
             </div>
 
             <div className="recommend" id="recommend">
               <div className="classify">
-                <p>Try out</p>
+                <p>Trải nghiệm</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -390,7 +390,7 @@ return () => clearInterval(intervalId);
                 </svg>
               </div>
               <div className="object">
-                <p>Good luck</p>
+                <p>Chúc may mắn</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -406,7 +406,7 @@ return () => clearInterval(intervalId);
                 </svg>
               </div>
               <div className="Further">
-                <p>Explore</p>
+                <p>Khám phá</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -432,7 +432,7 @@ return () => clearInterval(intervalId);
 
               </div>
               <div className="search" id="search">
-                <input id="input" placeholder="Input a location" type="text" />
+                <input id="input" placeholder="Tìm tên thành phố" type="text" />
               </div>
             </div>
 
@@ -475,7 +475,7 @@ return () => clearInterval(intervalId);
               <div className="temp">Day - 0&#176; C</div>
             </div>
             <div className="weather-forecast-item">
-              <div className="day">Thur</div>
+              <div className="day">Thus</div>
               <img
                 src="http://openweathermap.org/img/wn/10d@2x.png"
                 alt="weather icon"
