@@ -6,7 +6,7 @@ const Navbar = () => {
 		    <ul>
 			    <li><Link to='/main'>Trang chủ</Link></li> 
 			    <li><Link to ='/about'>Nhóm</Link></li>
-			    <li><Link to ='/dashboard'>tổng quan</Link></li>
+			    <li><Link to ='/dashboard'>Tổng quan</Link></li>
 		    </ul>
 	    </nav>
     );

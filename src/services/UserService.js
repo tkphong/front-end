@@ -138,12 +138,16 @@ class UserService {
                     let wind_speed = data["wind_speed"]
                     if (wt_cond === 'Có mây') {
                         item = 'camera'
+                        wt_cond = 'Cloud'
                     } else if (wt_cond === 'Trời nắng') {
                         item = 'sunglasses'
+                        wt_cond = 'Sunny'
                     } else if (wt_cond === 'Trời mưa') {
                         item = 'umbrella'
+                        wt_cond = 'Rainy'
                     } else if (wt_cond === 'Trong lành') {
                         item = 'bottle of water'
+                        wt_cond = 'Clear'
                     }
                     // ask about different feature such as temp, humidity, wind speed and the
                     // response from chatbot is !!feature!! $$value$$

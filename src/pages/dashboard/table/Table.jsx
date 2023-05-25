@@ -48,7 +48,7 @@ const List = () => {
         rows[i] = {
           id: time_stamp[i],
           temp: response.data[i].temperature + " C",
-          location: "Ho Chi Minh city",
+          location: "Thành phố Hồ Chí Minh",
           date: today.getDate()+ " / "+ (today.getMonth()+1) +" / " + today.getFullYear()
         }
       }
