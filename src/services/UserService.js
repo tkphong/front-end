@@ -19,12 +19,13 @@ class UserService {
         return axios.get(WEATHER_PREDICT_API_URL);
     }
 
-    async ensampleClassify(temp, speed, pres, humid, vis, clou) {
+    async ensampleClassify(temp, speed, pres, humid, rain, vis, clou) {
         let param_json = JSON.stringify({
             "temperature": temp,
             "wind_speed": speed,
             "pressure": pres,
             "humidity": humid,
+            "rain": rain,
             "vis_km": vis,
             "cloud": clou
         });
@@ -65,8 +66,9 @@ class UserService {
                                 let temp = response.data.temperature;
                                 let visibility = data.visibility;
                                 let clouds = data.clouds.all;
+                                let rain = data.rain["1h"];
 
-                                const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, visibility, clouds);
+                                const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, visibility, clouds, rain);
                                 localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "classify": result.Condition}));
                                 //DEBUG console.log(localStorage);
                                 return data;
@@ -90,8 +92,8 @@ class UserService {
                         //let temp = data.main.temp;
                         let visibility = data.visibility;
                         let clouds = data.clouds.all;
-
-                        const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, visibility, clouds);
+                        let rain = data.rain["1h"];
+                        const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, visibility, clouds, rain);
                         localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "classify": result.Condition}));
                         //DEBUG console.log(localStorage);
                         return data;
@@ -99,6 +101,7 @@ class UserService {
             }
         }
     }
+
 
     async getChatbotReponse(user_input) {
         return axios

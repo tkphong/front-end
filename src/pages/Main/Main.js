@@ -162,6 +162,14 @@ return () => clearInterval(intervalId);
       let temperature = data.main.temp;
       let visibility = data.visibility;
       let clouds = data.clouds.all;
+      //let rain = data.rain["1h"];
+      let rain;
+
+      if (data.rain) {
+        rain = data.rain["1h"];
+      } else {
+        rain = 0;
+      }
       countryEl.innerHTML = data.sys.country;
       coordinatesEl.innerHTML = data.coord.lat + "N " + data.coord.lon + "E";
       timezone.innerHTML = data.name;
@@ -173,7 +181,8 @@ return () => clearInterval(intervalId);
         pressure,
         humidity,
         visibility,
-        clouds
+        clouds,
+        rain
       );
       localStorage.setItem(
         place,
