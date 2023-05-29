@@ -36,6 +36,13 @@ const Widget = ({ type, value }) => {
       const windSpeed = weatherData.wind.speed;
       const clouds = weatherData.clouds.all;
       const visibility = weatherData.visibility;
+      let rain;
+
+      if (data.rain) {
+        rain = data.rain["1h"];
+      } else {
+        rain = 0;
+      }
       setWind(windSpeed);
       const responsee = await axios.post('http://127.0.0.1:8000/api/v1/', {
         temperature: temperature,
@@ -43,7 +50,8 @@ const Widget = ({ type, value }) => {
         pressure: pressure,
         humidity: humidity,
         vis_km: visibility,
-        cloud: clouds
+        cloud: clouds,
+        rain: rain
       });
       const responseData = responsee.data;
       setCondition(responseData.Condition);
