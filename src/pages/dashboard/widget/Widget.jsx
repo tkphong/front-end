@@ -17,9 +17,11 @@ const Widget = ({ type, value }) => {
 
   const getWeatherData = async () => {
     try {
+      //const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+ location + '&appid=9036b3e09ad902d33f97482be10154d7');
       const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7');
       const weatherData = response.data;
       const windSpeed = weatherData.wind.speed;
+      console.log(response);
       setWind(windSpeed);
     } catch (error) {
       console.log(error);
@@ -28,6 +30,7 @@ const Widget = ({ type, value }) => {
 
   const getConditionData = async () => {
     try {
+      //const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+ location + '&appid=9036b3e09ad902d33f97482be10154d7');
       const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7');
       const weatherData = response.data;
       const temperature = weatherData.main.temp;
@@ -38,17 +41,20 @@ const Widget = ({ type, value }) => {
       const visibility = weatherData.visibility;
       let rain;
 
-      if (data.rain) {
-        rain = data.rain["1h"];
+      if (weatherData.rain && weatherData.rain["1h"]) {
+        rain = weatherData.rain["1h"];
       } else {
         rain = 0;
       }
+      //const rain = weatherData.rain["1h"];
       setWind(windSpeed);
       const responsee = await axios.post('http://127.0.0.1:8000/api/v1/', {
         temperature: temperature,
+        //temperature: temp,
         wind_speed: windSpeed,
         pressure: pressure,
         humidity: humidity,
+        //humidity: humid,
         vis_km: visibility,
         cloud: clouds,
         rain: rain

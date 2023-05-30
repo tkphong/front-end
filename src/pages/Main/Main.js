@@ -1,10 +1,12 @@
 import "./Main.css";
 import axios from "axios";
 import UserService from "../../services/UserService";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Chatbot from "./../chatbot/Chatbot";
+
 const Main = () => {
+
   useEffect(() => {
 
 // Hàm để gọi API và cập nhật dữ liệu
@@ -97,6 +99,7 @@ return () => clearInterval(intervalId);
           text === "ho chi minh city" ||
           text === "Hồ Chí Minh" 
         ) {
+
           let data = null;
           location = "Ho Chi Minh";
           text = "";
@@ -165,11 +168,12 @@ return () => clearInterval(intervalId);
       //let rain = data.rain["1h"];
       let rain;
 
-      if (data.rain) {
+      if (data.rain && data.rain["1h"]) {
         rain = data.rain["1h"];
       } else {
         rain = 0;
       }
+      console.log(rain);
       countryEl.innerHTML = data.sys.country;
       coordinatesEl.innerHTML = data.coord.lat + "N " + data.coord.lon + "E";
       timezone.innerHTML = data.name;
@@ -180,9 +184,9 @@ return () => clearInterval(intervalId);
         wind_speed,
         pressure,
         humidity,
+        rain,
         visibility,
-        clouds,
-        rain
+        clouds
       );
       localStorage.setItem(
         place,

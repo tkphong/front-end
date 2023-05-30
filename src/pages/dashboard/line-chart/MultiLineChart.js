@@ -3,6 +3,7 @@ import Chart from 'react-google-charts';
 import "./MultiLineChart.css";
 import UserService from '../../../services/UserService';
 import axios from 'axios';
+
 const LineData = [
   ['x', 'temperature', 'humidity','wind-speed'],
   [0, 0, 0, 0],
@@ -16,8 +17,12 @@ const LineData = [
 ]
 
 const getWeatherData = async () => {
+
   try {
-    const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7');
+    //const url = 'https://api.openweathermap.org/data/2.5/weather?q='+ location +'&appid=9036b3e09ad902d33f97482be10154d7';
+    const url = 'https://api.openweathermap.org/data/2.5/weather?q=Ho Chi Minh&appid=9036b3e09ad902d33f97482be10154d7';
+    console.log(url);
+    const response = await axios.get(url);
     const weatherData = response.data;
     const windSpeed = weatherData.wind.speed;
     return windSpeed;
@@ -40,6 +45,7 @@ const LineChartOptions = {
 };
 
 const MultiLineChart = () => {
+
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
@@ -52,11 +58,11 @@ const MultiLineChart = () => {
               const data = response.data;
               const chartData = [['x', 'nhiệt độ', 'độ ẩm', 'tốc độ gió']];
               for (let i = 0; i < data.length; i++) {
-                const temperature = data[i].temperature;
                 const humidity = data[i].humidity;
+                const temperature = data[i].temperature;
                 const windSpeed = (weatherData * 3600) / 1000;
 
-                chartData.push([i, temperature, humidity, windSpeed]);
+                chartData.push([i, humidity, temperature, windSpeed]);
               }
 
               setChartData(chartData);

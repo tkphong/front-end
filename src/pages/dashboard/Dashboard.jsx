@@ -6,8 +6,12 @@ import Table from "./table/Table";
 import React, { useState, useEffect } from 'react';
 import UserService from "../../services/UserService";
 
-
 const  Dashboard = () => {
+  // var islocation = localStorage.getItem(islocat);
+  // if(islocation===undefined||islocat===null)
+  // {
+  //   islocation=true;
+  // }
   const [widget_res, setWidget_res] = useState(null); 
   var humid=0;
   var temp=0;
@@ -32,6 +36,7 @@ const  Dashboard = () => {
           <div className="charts">
             <MultiLineChart/>
           </div>
+
           <div className="listContainer">
             <div className="listTitle">Dự đoán nhiệt độ</div>
             <Table />

@@ -49,7 +49,7 @@ class UserService {
     async _chatbotHelper(place) {
         if (localStorage.getItem(place) == null) {
             const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-            if (place === "Ho Chi Minh City") {
+            if (place === "Ho Chi Minh") {
                 let data = null;
                 //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${place}`;
                 const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=${API_KEY}`
@@ -66,9 +66,15 @@ class UserService {
                                 let temp = response.data.temperature;
                                 let visibility = data.visibility;
                                 let clouds = data.clouds.all;
-                                let rain = data.rain["1h"];
+                                let rain;
 
-                                const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, visibility, clouds, rain);
+                                if (data.rain && data.rain["1h"]) {
+                                  rain = data.rain["1h"];
+                                } else {
+                                  rain = 0;
+                                }
+
+                                const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, rain, visibility, clouds);
                                 localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "classify": result.Condition}));
                                 //DEBUG console.log(localStorage);
                                 return data;
@@ -81,6 +87,7 @@ class UserService {
             } else {
                 const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=${API_KEY}`
                 //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${place}`;
+                console.log(url);
                 return axios
                     .get(url)
                     .then(async(response) => {
@@ -88,12 +95,19 @@ class UserService {
                         let humidity = data.main.humidity;
                         let pressure = data.main.pressure;
                         let wind_speed = data.wind.speed;
-                        let temp = data.main.feels_like;
+                        let temp = data.main.temp;
                         //let temp = data.main.temp;
                         let visibility = data.visibility;
                         let clouds = data.clouds.all;
-                        let rain = data.rain["1h"];
-                        const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, visibility, clouds, rain);
+                        let rain;
+
+                        if (data.rain && data.rain["1h"]) {
+                          rain = data.rain["1h"];
+                        } else {
+                          rain = 0;
+                        }
+                        console.log(rain);
+                        const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, rain, visibility, clouds);
                         localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "classify": result.Condition}));
                         //DEBUG console.log(localStorage);
                         return data;
@@ -136,21 +150,24 @@ class UserService {
                     let data = JSON.parse(localStorage.getItem(place))
                     let temp = data["temp"]
                     let humidity = data["humidity"]
-                    let wt_cond = data["classify"]
+                    let wt_cond = data["classify"] 
+                    console.log(data["classify"]);
                     let item = null
                     let wind_speed = data["wind_speed"]
+                    console.log(wt_cond); 
+
                     if (wt_cond === 'Có mây') {
                         item = 'camera'
-                        wt_cond = 'Cloud'
+                        //wt_cond = 'Cloud'
                     } else if (wt_cond === 'Trời nắng') {
                         item = 'sunglasses'
-                        wt_cond = 'Sunny'
+                        //wt_cond = 'Sunny'
                     } else if (wt_cond === 'Trời mưa') {
                         item = 'umbrella'
-                        wt_cond = 'Rainy'
+                        //wt_cond = 'Rainy'
                     } else if (wt_cond === 'Trong lành') {
                         item = 'bottle of water'
-                        wt_cond = 'Clear'
+                        //wt_cond = 'Clear'
                     }
                     // ask about different feature such as temp, humidity, wind speed and the
                     // response from chatbot is !!feature!! $$value$$
