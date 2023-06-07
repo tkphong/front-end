@@ -89,7 +89,7 @@ return () => clearInterval(intervalId);
     const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
     var input = document.getElementById("input");
-    input.addEventListener("keydown", function(e) {
+    input.addEventListener("keydown", async function(e) {
       if (e.key === "Enter") {
         let location = document.getElementById("input").value;
         let text = location.toLowerCase();
@@ -97,42 +97,45 @@ return () => clearInterval(intervalId);
           text === "ho chi minh" ||
           text === "sai gon" ||
           text === "ho chi minh city" ||
-          text === "Hồ Chí Minh" 
+          text === "hồ chí minh"
         ) {
-
           let data = null;
           location = "Ho Chi Minh";
           text = "";
           const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}&lang=vi`;
-          //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`;
-          axios.get(url).then((response) => {
+    
+          try {
+            const response = await axios.get(url);
             data = response.data;
             console.log(response.data);
-          });
-
-          UserService.getLatestRecord()
-            .then((response) => {
-              // console.log(response);
-              data.main.humidity = response.data.humidity;
-              //data.main.feels_like = response.data.temperature;
-              data.main.temp = response.data.temperature;
-              //data.wind.speed = response.data.windSpeed;
-              showWeatherData(data, "Ho Chi Minh City");
-              predictWeatherData2(data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+    
+            const latestRecord = await UserService.getLatestRecord();
+            console.log(latestRecord);
+            data.main.humidity = latestRecord.data.humidity;
+            data.main.temp = latestRecord.data.temperature;
+            console.log(data.main.humidity);
+            console.log(data.main.temp);
+    
+            showWeatherData(data, "Ho Chi Minh City");
+            predictWeatherData2(data);
+          } catch (err) {
+            console.log(err);
+          }
+    
           location = "";
           document.getElementById("input").value = "";
         } else {
-          //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`;
           const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}&lang=vi`;
-          axios.get(url).then((response) => {
-            let data = response.data;
+    
+          try {
+            const response = await axios.get(url);
+            const data = response.data;
             showWeatherData(data, data.name);
             predictWeatherData2(data);
-          });
+          } catch (err) {
+            console.log(err);
+          }
+    
           location = "";
           document.getElementById("input").value = "";
         }
