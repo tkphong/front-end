@@ -75,8 +75,9 @@ class UserService {
                                 }
 
                                 const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, rain, visibility, clouds);
-                                localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "classify": result.Condition}));
-                                //DEBUG console.log(localStorage);
+                                localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "visibility": visibility, 
+                                "classify": result.Condition}));
+                                console.log(localStorage);
                                 return data;
                             })
                             .catch((err) => {
@@ -109,7 +110,7 @@ class UserService {
                         console.log(rain);
                         const result = await this.ensampleClassify(temp, wind_speed, pressure, humidity, rain, visibility, clouds);
                         localStorage.setItem(place, JSON.stringify({"temp": temp, "humidity": humidity, "wind_speed": wind_speed, "classify": result.Condition}));
-                        //DEBUG console.log(localStorage);
+                        console.log(localStorage);
                         return data;
                     })
             }
@@ -157,10 +158,10 @@ class UserService {
                     console.log(wt_cond); 
 
                     if (wt_cond === 'Có mây') {
-                        item = 'camera'
+                        item = 'umbrella'
                         wt_cond = 'Cloud'
                     } else if (wt_cond === 'Trời nắng') {
-                        item = 'sunglasses'
+                        item = 'hat or jacket'
                         wt_cond = 'Sunny'
                     } else if (wt_cond === 'Trời mưa') {
                         item = 'umbrella'
@@ -182,9 +183,8 @@ class UserService {
                     } else if (feature === "humidity") {
                         value = humidity
                     } else if (feature === "wind speed") {
-                        value = wind_speed
-                    }
-
+                        value = ((wind_speed * 3600) / 1000).toFixed(2)
+                    } 
                     bot_response = bot_response
                         .replaceAll("$$wt_cond$$", wt_cond)
                         .replaceAll("$$item$$", item)
