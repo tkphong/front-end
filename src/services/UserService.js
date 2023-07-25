@@ -1,9 +1,14 @@
 import axios from 'axios'
-//const WEATHER_REST_API_URL = 'https://api-weather-app.herokuapp.com/api'
-const WEATHER_REST_API_URL = 'http://localhost:8080/api'
-const WEATHER_CLASSIFY_API_URL = 'http://127.0.0.1:8000/api/v1/'
-const WEATHER_PREDICT_API_URL = 'http://127.0.0.1:8000/api/v2/6'
-const CHATBOT_API_URL = 'http://127.0.0.1:8000/api/v3/'
+
+// const WEATHER_REST_API_URL = 'http://localhost:8080/api'
+// const WEATHER_CLASSIFY_API_URL = 'http://127.0.0.1:8000/api/v1/'
+// const WEATHER_PREDICT_API_URL = 'http://127.0.0.1:8000/api/v2/6'
+// const CHATBOT_API_URL = 'http://127.0.0.1:8000/api/v3/'
+
+const WEATHER_REST_API_URL = 'http://localhost:8085/api'
+const WEATHER_CLASSIFY_API_URL = 'http://0.0.0.0:8000/api/v1/'
+const WEATHER_PREDICT_API_URL = 'http://0.0.0.0:8000/api/v2/6'
+const CHATBOT_API_URL = 'http://0.0.0.0:8000/api/v3/'
 
 class UserService {     
     getLatestRecord() {
@@ -51,7 +56,6 @@ class UserService {
             const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
             if (place === "Ho Chi Minh") {
                 let data = null;
-                //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${place}`;
                 const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=${API_KEY}`
                 return axios
                     .get(url)
@@ -87,7 +91,6 @@ class UserService {
 
             } else {
                 const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=${API_KEY}`
-                //const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${place}`;
                 console.log(url);
                 return axios
                     .get(url)
@@ -97,7 +100,6 @@ class UserService {
                         let pressure = data.main.pressure;
                         let wind_speed = data.wind.speed;
                         let temp = data.main.temp;
-                        //let temp = data.main.temp;
                         let visibility = data.visibility;
                         let clouds = data.clouds.all;
                         let rain;
